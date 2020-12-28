@@ -1,0 +1,127 @@
+/*.layui-table tbody tr:hover{
+    background-color: transparent!important;
+}*/
+/** 公文表单显示样式 */
+.border_red{
+    border-width: 0px 0px 5px 0px;
+    border-style:outset;
+    border-color: red;
+    color: rgb(255, 0, 0);
+}
+.text-center{
+    vert-align: middle;
+    align-items: center;
+}
+/** 列表状态字典显示样式 */
+.dictlable0 {
+    background-color:#1E9FFF!important;
+    height: 18px;
+    /*line-height: 18px;*/
+}
+
+.dictlable1 {
+    background-color:orange !important;
+}
+
+.dictlable2 {
+    background-color: #4cae4c!important;
+}
+
+.dictlable3 {
+    background-color: green!important;
+}
+
+.dictlable4 {
+    background-color: #FF5722!important;
+}
+
+.dictlable5 {
+    background-color: gray!important;
+}
+.dictlable6 {
+    background-color: #3492ED!important;
+}
+.dictlable7 {
+    background-color: cyan!important;
+}
+.dictlable8 {
+    background-color: #4DAF29!important;
+}
+
+.dictlable9 {
+    background-color: #CF1900!important;
+}
+
+.dictlable10  {
+    background-color: #1b90d6!important;
+}
+.dictlable  {
+    background-color: blue!important;
+}
+.layui-btn-green {
+    border: 1px solid #fff;
+    background-color: #009688 !important;
+    color: #fff
+}
+
+.layui-btn-green:hover {
+    border-color: #009683;
+    background-color: #009683 !important;
+    color: #fff
+}
+/** 辅助样式 */
+
+/*表单lable居中对齐*/
+.self-lable{
+    height:36px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+}
+
+.itemBar .btn-group {
+    border: 1px solid #AAA4A4;
+    border-radius: 3px;
+}
+.itemBar .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.itemBar .btn-group > .btn-default.active{
+    border-color: #1E9FFF;
+    background-color: #1E9FFF;
+    color: #fff;
+}
+.itemBar .btn-group > .btn{
+    display: inline-block;
+}
+.itemBar .btn-group {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+.itemBar .btn-group > .btn:first-child {
+    margin-left: 0;
+}
+.itemBar .btn {
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+}
+.itemBar {
+    margin-bottom: 10px
+}

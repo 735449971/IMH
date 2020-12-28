@@ -1,0 +1,999 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a, button, ul, li, dl, dd {
+    font-style: normal;
+    text-decoration: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+th, td {
+    text-align: center;
+}
+.fl {
+    float: left;
+}
+.hide{
+    display: none;
+}
+label{
+     display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+body {
+    font-size: 14px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(36, 37, 43, 0.996) !important;
+    box-sizing: border-box;
+}
+.text-center{
+    text-align: center;
+}
+.text-right{
+    text-align: right;
+}
+.myMap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 800px;
+    background-color: rgba(36, 37, 43, 0.996) !important;
+}
+
+.anchorBL,
+.BMap_noprint.anchorTR{
+    display: none;
+}
+
+.BMapLabel,.BMap_Marker  {
+    z-index: 99 !important;
+}
+
+.ec-extension-bmap {
+    background-color: rgb(8, 23, 52) !important;
+}
+
+.layerOperateArea {
+    height: 48px;
+    width: 320px;
+    line-height: 48px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 3px 5px 5px #1d396f;
+    background: linear-gradient(to bottom, #FDFEFF, #E5F0FC);
+    color: #333;
+    text-align: center;
+    position: absolute;
+    right: 10px;
+    top: 20px;
+}
+
+.operateItem {
+    width: 100%;
+    height: 100%;
+}
+
+.layerOperateArea .mapLayer {
+    width: 33%;
+    float: left;
+    border-right: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.layerOperateArea .mapLayer.active {
+    color: #fff;
+}
+
+.operateItem .mapLayer:last-child {
+    border-right: none;
+}
+
+.mapLayer ul.mapRegionList,
+.mapLayer ul.layerTypeList,
+.mapLayer ul.mapStyleList {
+    display: none;
+    position: absolute;
+    width: 100px;
+    text-align: left;
+    background: rgba(0, 0, 0, .6);
+    margin-top: 10px;
+    padding-left: 10px;
+    z-index: 9;
+}
+
+.mapLayer ul li {
+    line-height: 34px;
+    color: #fff;
+    list-style: inside;
+    font-size: 14px;
+}
+
+.mapRegionList .nation .icon {
+    padding-right: 5px;
+    padding-top: 3px;
+    height: 5px;
+}
+
+.mapLayer.active {
+    background: #1E9FFF;
+    color: #fff;
+}
+
+.areaType,.dataTypeList {
+    display: none;
+    border-top: 1px solid #545452;
+    border-bottom: 1px solid #545452;
+}
+
+.areaType li ,.dataTypeList li{
+    text-align: left;
+    padding-left: 15px;
+}
+
+.mapRegionList .nation .icon {
+    padding-right: 5px;
+    padding-top: 3px;
+    height: 5px;
+}
+
+.icon-up, .icon-down:after {
+    content: '';
+    clear: both;
+}
+
+.icon-up, .icon-down {
+    float: right;
+    cursor: pointer;
+    margin-top: 3px;
+}
+
+.icon-up::before {
+    content: url("../../assets/images/map/icon-up.png");
+}
+
+.icon-down::before {
+    content: url("../../assets/images/map/icon-down.png");
+}
+
+.factorArea {
+    position: absolute;
+    top: 75px;
+    right: 10px;
+    z-index: 1;
+    width: 80px;
+}
+
+.btn-group > .btn {
+    color: #333;
+    float: none;
+    display: block;
+    border-radius: 0;
+    padding: 6px 8px;
+    background: rgba(255, 255, 255, .9);
+}
+
+
+.factorArea ul > .btn:first-child {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.factorArea ul > .btn:last-child {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+.btn-group {
+    border: 1px solid #AAA4A4;
+    border-radius: 3px;
+    background: #fff;
+    margin-bottom: 10px;
+}
+
+.btn-group .btn {
+    color: #333;
+    padding: 3px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btn.active,
+.btn:hover{
+    background: #1E9FFF;
+    color: #fff;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125)
+}
+
+.legendArea {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.legendArea>div{
+    margin-bottom: 10px;
+}
+.btn-group .btn-title {
+    text-align: center;
+    width: 100%;
+    display: block;
+    line-height: 30px;
+    color: #1E9FFF;
+    border-bottom: 1px solid #1e9fff;
+}
+
+.siteType.active,
+.areaType .active,
+.dataTypeList li.active{
+    color: #1E9FFF;
+}
+
+.rankPanel {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 480px;
+    height: 97.8%;
+    background: #1b3f63;
+    z-index: 99;
+    padding: 10px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .5);
+}
+
+.rankPanel .itemContainer > div {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.itemContainer {
+    margin-top: 30px;
+}
+
+.aqiRankTable {
+    width: 100%;
+    height: calc(100% - 70px);
+    overflow-y: auto;
+}
+
+.itemTable {
+    color: #fff;
+    width: 100%;
+    height: calc(100% - 100px);
+}
+
+.itemTableTitle {
+    line-height: 40px;
+    text-align: center;
+}
+
+.itemTable table {
+    width: 100%;
+}
+
+.itemTable td,
+.itemTable th {
+    border: 1px solid #ddd;
+}
+
+.itemTable th {
+    line-height: 34px;
+}
+
+.itemTable td {
+    line-height: 30px;
+}
+
+.itemTable td span {
+    min-width: 40px;
+    display: inline-block;
+    margin: 3px;
+    line-height: 24px;
+}
+
+.itemTable .aqiTips {
+    width: 100%;
+    text-align: right;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.closePanelButton {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    left: -15px;
+    top: 0;
+    font: 25px/38px "微软雅黑";
+    text-align: center;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    z-index: 1000;
+    background: #1E9FFF
+}
+
+.item-area .btn-group > div,
+.item-date .btn-group > div{
+    display: inline-block;
+    margin-left: -4px;
+}
+
+.item-area .btn-group > div:first-child,
+.item-date .btn-group > div:first-child{
+    margin-left: 0;
+}
+.itemContainer>div{
+    display: inline-flex;
+}
+.meteorologicalLegend {
+    background: rgba(0, 0, 0, .8);
+    width: auto;
+    line-height: 24px;
+    color: #fff;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+}
+.meteorologicalLegend ul li {
+    padding: 0 5px;
+    display: inline-block;
+}
+
+.press-factor{
+    display:none
+}
+.siteLabelArea {
+    display: inline-block;
+}
+.siteLabelArea .itemNum {
+    text-align: center;
+    color: #333;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+.siteLabelArea .itemNum i {
+    border-radius: 50%;
+    font-style: normal;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
+    line-height: 28px;
+}
+.siteLabelArea .itemName {
+    margin-top: 5px;
+    background: rgba(245, 245, 245, 0.9);
+    padding: 4px;
+    display: inline-block;
+    text-align: center;
+}
+.popup-content-wrapper {
+    background: white;
+    color: #333;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+}
+
+.map-popup-model {
+    background: #efefef;
+    border-radius: 5px;
+}
+
+.map-popup-model .modelTitle {
+    color: #fff;
+    border-bottom: #cccccc solid 1px;
+    font-size: 16px;
+    padding: 10px;
+    background: #1e9fff;
+}
+
+.map-popup-model .pollution-detail {
+    height: 120px;
+    margin: auto;
+    padding: 5px;
+}
+.map-popup-model .popup-info{
+    padding: 10px;
+}
+.map-popup-model .siteDataArea{
+    background: #fff;
+    padding: 10px;
+}
+.map-popup-model .pollution-detail .map-card {
+    height: 50px;
+    margin: 10px 5px 0;
+    position: relative;
+}
+.siteDataArea ul li .li-style{
+    width: 124px;
+    display: inline-block;
+    line-height: 21px;
+}
+.siteDataArea ul li .li-text{
+    width: calc(100% - 124px);
+    display: inline-flex;
+}
+
+.map-popup-model .pollution-detail .map-card .top {
+    width: auto;
+    border-radius: 5px 5px 0 0;
+    height: 25px;
+    line-height: 25px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: white;
+    padding: 0 4px;
+}
+
+.background-blue {
+    background: #378fce;
+}
+
+.map-popup-model .pollution-detail .map-card .top span {
+    color: white;
+}
+
+.map-popup-model .pollution-detail .map-card .bottom {
+    width: auto;
+    height: 23px;
+    border-radius: 0 0 5px 5px;
+    border: #cccccc solid 1px;
+    line-height: 23px;
+    font-size: 14px;
+}
+.site-data-detailbtn li {
+    width: 20%;
+    cursor: pointer;
+    color: #333;
+    display: inline-block;
+    padding-left: 20px;
+    padding-top: 5px;
+}
+.site-data-detailbtn li.active{
+    color: #1e9fff;
+}
+.site-data-detailbtn > .list-inline > li.site-exceed.icon-blue {
+    background: url(../images/map/icon-data-blue.png) no-repeat 3px 6px;
+}
+.site-data-detailbtn > .list-inline > li.site-link.icon-blue {
+    background: url(../images/map/icon-associate-blue.png) no-repeat left 6px;
+}
+.site-data-detailbtn > .list-inline > li.site-trend.icon-blue {
+    background: url(../images/map/icon-trend.png) no-repeat left 6px;
+}
+
+.itemArea {
+    width: 100%;
+}
+
+.itemArea > div {
+    width: 44%;
+    display: inline-block;
+}
+
+.pollution-detail > div {
+    display: inline-block;
+    width: 48%;
+    background: #fff;
+    padding-bottom: 8px;
+}
+
+.itemInfo {
+    margin-right: 10px;
+    padding-bottom: 2px;
+}
+
+.airInfo {
+    padding-left: 10px;
+    padding-top: 6px;
+    clear: both;
+    height: 60px;
+}
+
+.airInfo > div {
+    display: inline-block;
+    width: 49%;
+    text-align: left;
+    font-size: 12px;
+}
+
+.chartTitle {
+    clear: both;
+    line-height: 30px;
+    text-indent: 10px;
+}
+
+.aqiBg1 {
+    background: #71D802;
+}
+
+.aqiBg2 {
+    background: #C8B101;
+}
+
+.aqiBg3 {
+    background: #EEA500;
+}
+
+.aqiBg4 {
+    background: #E72C0B;
+}
+
+.aqiBg5 {
+    background: #960A73;
+}
+
+.aqiBg6 {
+    background: #5F0346;
+}
+
+.aqiBg7, .aqiBg0, .aqiBg-, .aqiBg {
+    background: #999;
+}
+
+.map-chart {
+    height: 110px;
+    width: auto;
+}
+
+.popup-tip-container {
+    width: 40px;
+    height: 20px;
+    position: absolute;
+    left: 45%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.popup-content-wrapper, .popup-tip {
+    background: #f2f2f2;
+    color: #333;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+}
+
+.popup-tip {
+    width: 17px;
+    height: 17px;
+    padding: 1px;
+    margin: -10px auto 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.regionArea{
+    position: absolute;
+    left:0;
+    top:240px;
+    width: 80px;
+}
+.cityList ul{
+    display: none;
+}
+.regionArea .btn-title{
+    color: #333;
+    cursor: pointer;
+}
+.regionArea .active .btn-title{
+    color: #1E9FFF;
+}
+.regionArea .areaList{
+    margin-bottom: 5px;
+}
+.mapSiteArea {
+    position: absolute;
+    top: 20px;
+    width: 140px;
+    color: #fff;
+    background: rgba(1,10,39,0.75);
+    padding: 10px;
+    display: none;
+}
+
+.map-type-title{
+    text-align: left;
+    background: url("../images/map/map-type-line.png") no-repeat center bottom;
+    padding-bottom: 10px;
+    padding-left: 5px;
+}
+
+.map-type-title div:nth-child(2){
+    margin-left: -10px;
+    color: #fff;
+}
+.map-type-title div:nth-child(2).active{
+    color: #4bafff;
+}
+.map-type-title>div{
+    display: inline-block;
+    cursor: pointer;
+}
+.map-type-title div img{
+    width: 60%;
+    vertical-align: middle;
+    padding-right: 5px;
+}
+.map-type-content ul li{
+    line-height: 27px;
+    background-size: 18%;
+    vertical-align: middle;
+    padding-left: 24px;
+    cursor: pointer;
+    color: #fff;
+}
+.map-type-content ul li.active{
+    background-size: 18%;
+    color: #4bafff;
+}
+.icon-waste-water.active{
+    background: url("../images/map/icon-waste-water.png") no-repeat center left ;
+}
+.icon-waste-water{
+    background: url("../images/map/icon-waste-water-active.png") no-repeat center left ;
+}
+.icon-waste-gas.active{
+    background: url("../images/map/icon-waste-gas-active.png") no-repeat center left;
+}
+.icon-waste-gas{
+    background: url("../images/map/icon-waste-gas.png") no-repeat center left;
+}
+.icon-sewage.active{
+    background: url("../images/map/icon-sewage.png") no-repeat center left;
+}
+.icon-sewage{
+    background: url("../images/map/icon-sewage-active.png") no-repeat center left;
+}
+.icon-electrical.active{
+    background: url("../images/map/icon-electrical-active.png") no-repeat center left;
+}
+.icon-electrical{
+    background: url("../images/map/icon-electrical.png") no-repeat center left;
+}
+.icon-emission.active{
+    background: url("../images/map/icon-emission-active.png") no-repeat center left;
+}
+.icon-emission{
+    background: url("../images/map/icon-emission.png") no-repeat center left;
+}
+.icon-site-standard.active{
+    background: url("../images/map/icon-site-standard.png") no-repeat center left;
+}
+.icon-site-standard{
+    background: url("../images/map/icon-site-standard-active.png") no-repeat center left;
+}
+.icon-site-town.active{
+    background: url("../images/map/icon-site-town.png") no-repeat center left;
+}
+.icon-site-town{
+    background: url("../images/map/icon-site-town-active.png") no-repeat center left;
+}
+.icon-site-small.active{
+    background: url("../images/map/icon-site-small.png") no-repeat center left;
+}
+.icon-site-small{
+    background: url("../images/map/icon-site-small-active.png") no-repeat center left;
+}
+.icon-site-standardTown.active{
+    background: url("../images/map/icon-site-standardTown.png") no-repeat center left;
+}
+.icon-site-standardTown{
+    background: url("../images/map/icon-site-standardTown-active.png") no-repeat center left;
+}
+.icon-site-raiseDust.active{
+    background: url("../images/map/icon-site-raiseDust.png") no-repeat center left;
+}
+.icon-site-raiseDust{
+    background: url("../Images/map/icon-site-raiseDust-active.png") no-repeat center left;
+}
+
+.mapSiteArea section{
+    padding: 5px 0;
+}
+.map-type-content ul{
+    padding-top: 5px;
+}
+.siteLabelTitle{
+    background:rgba(9, 24, 65,.9);
+    padding:3px;
+    position: absolute;
+}
+/*直观普通样式*/
+.show-site-name {
+    position: absolute;
+    right: 10px;
+    bottom: 40px;
+    display: none;
+}
+
+.show-site-name > li {
+    margin-left: 5px;
+    padding: 5px;
+    background: rgba(255, 255, 255, .6);
+    border: 2px solid #aaa4a4;
+    color: #333;
+    border-radius: 2px;
+    -webkit-transition: left 0.5s;
+    -moz-transition: left 0.5s;
+    -ms-transition: left 0.5s;
+    -o-transition: left 0.5s;
+    transition: left 0.5s;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.show-site-name > li.active {
+    color: #fff;
+    background: #1e9fff;
+    border-color: #1e9fff;
+}
+.chartArea{
+    background: #fff;
+    margin-top: 5px;
+    max-height: 260px;
+    overflow-y: auto;
+}
+.chartArea>div{
+    padding: 10px;
+}
+.chartArea table{
+    width: 100%;
+    margin: 0 auto;
+}
+.chartArea table th,
+.chartArea table td{
+    border:1px solid #ddd;
+    line-height: 22px;
+}
+.site-data-detailbtn .layui-icon{
+    position: absolute;
+    right: 10px;
+    margin-top: -20px;
+}
+.site-data-detailbtn .table-panel-up:before{
+    content: url(../../assets/images/map/icon-up.png);
+}
+.site-data-detailbtn .table-panel-down:before{
+    content: url(../../assets/images/map/icon-down.png);
+}
+.distanceSearch{
+    position: absolute;
+    top: 20px;
+    left: 10px;
+}
+.distanceSearch input {
+    line-height: 32px;
+    text-indent: 10px;
+    color: #000;
+    width: 240px;
+    border-radius: 3px;
+    border: 1px solid #aaa4a4;
+}
+.distanceSearch #search{
+    background: #1e9fff;
+    border-radius: 5px;
+    vertical-align: middle;
+    height: 32px;
+}
+.weatherArea {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+    color: #fff;
+    font-size: 18px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 8px 20px;
+    background: #1e9fff;
+}
+.rightBtn {
+    position: absolute;
+    right: 460px;
+    top: 45%;
+    margin: 0 auto;
+}
+
+.leftBtn {
+    position: absolute;
+    left: 400px;
+    top: 45%;
+    margin: 0 auto;
+}
+
+.leftPanelBox {
+    position: absolute;
+    left: 0;
+    width: 400px;
+    height: calc(100% - 150px);
+    bottom: 10px;
+    background: #031e2f;
+    opacity: 0.9;
+    z-index: 1;
+    color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .5);
+}
+.rightPanelBox{
+    position: fixed;
+    right: 0;
+    width: 460px;
+    height: calc( 100% - 150px);
+    bottom: 10px;
+    background: #031e2f;
+    opacity: 0.9;
+    z-index: 1;
+    color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .5);
+}
+.viewPanel {
+    height: 80px;
+    width: 34px;
+    border-color: #1e9fff;
+    background-color: #1e9fff;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.viewPanel .layui-icon {
+    color: #fff;
+    line-height: 80px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.panelBox .layui-colla-title{
+    color: #fff;
+    background-color: #214156;
+}
+.panelBox .layui-colla-item{
+    border-color: #929090;
+}
+.panelBox .layui-collapse,
+.panelBox .layui-colla-content{
+    border: none;
+    color: #fff;
+}
+.collo-table {
+    overflow-y: auto;
+    table-layout: fixed;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid #9a9797;
+    line-height: 22px;
+}
+.collo-table th, .collo-table td {
+    border: 1px solid #9a9797;
+    font-size: 13px;
+    white-space: normal;
+    word-break: normal;
+}
+.leftPanelBox .layui-collapse{
+    height: 100%;
+}
+.panelBox .layui-collapse>div{
+    max-height: 50%;
+    overflow-y: hidden;
+}
+.panelBox .layui-collapse .layui-colla-content{
+    max-height: calc(50% - 65px);
+    padding: 10px;
+    overflow-y: auto;
+}
+.legendArea span {
+    width: 130px;
+    display: inline-block;
+    color: #fff;
+}
+.user_first_pollutant:before {
+    content: "首要污染物";
+    position: absolute;
+    top: 18%;
+    left: 15%;
+    font-size: 12px;
+    color: #dc6262;
+    transform: rotate(-17deg);
+}
+.popup-content-wrapper .linkBtn{
+    line-height: 40px;
+    color: #1e9fff;
+    background: url(../images/map/icon-associate-blue.png) no-repeat 10px 10px #fff;
+    padding-left: 30px;
+}
+.popup-content-wrapper .linkBtn a,
+.popup-content-wrapper .linkBtn a:hover{
+    color: #1e9fff;
+}
+.list-footer{
+    line-height: 24px;
+    text-align: center;
+}
+.collo-table table th{
+    line-height: 26px;
+}
+.tabItem {
+    width: 70%;
+    margin-bottom: 12px;
+    margin-left: 5px;
+}
+
+.tabItem .form-control {
+    background-color: #359194;
+}
+.gridInfo {
+    position: absolute;
+    background: #fff;
+    min-width: 180px;
+    min-height: 60px;
+    font-size: 12px;
+    padding: 5px;
+    line-height: 21px;
+    border-radius: 3px;
+    box-shadow: 2px 3px 2px rgb(41, 50, 58);
+    display: none
+}
+.airMinuteChartArea{
+    width: 100%;
+}
+.chartTitle{
+    line-height: 30px;
+}
+ .weatherArea>div{
+    display: inline-block;
+    padding: 0 2px;
+    letter-spacing: 2px;
+}
+.weatherArea .weatherImg{
+    vertical-align: middle;
+}
+.siteLabelBox{
+    display: inline-block;
+}
+.siteLabelBox .siteLabelIcon{
+    display: block;
+    width: 15px;
+    height: 15px;
+    background: yellow;
+    border-radius: 50%;
+    text-align: center;
+    margin: 0 auto 5px;
+}
+.siteLabelBox .siteLabelTitle{
+    position: unset;
+}
+td.overHiddenText{
+    white-space:nowrap;
+    word-break: keep-all;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    padding: 0 3px;
+}
