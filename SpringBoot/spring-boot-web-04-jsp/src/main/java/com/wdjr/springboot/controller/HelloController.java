@@ -9,7 +9,7 @@ public class HelloController {
     @GetMapping("/hello")
     public String hello(Model model){
         model.addAttribute("message","这是Controller传过来的message");
-        System.out.println("sdfasdfa");
+        System.out.println("sdfasdQfa");
         return "success";
     }
 }
