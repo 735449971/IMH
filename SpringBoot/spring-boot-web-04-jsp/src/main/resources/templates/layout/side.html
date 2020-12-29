@@ -1,0 +1,55 @@
+<div class="layui-side" style="background:url('/static/assets/images/side_new.png') no-repeat;background-size: 100% 100%">
+    <div class="layui-side-scroll">
+        <div style="height: 38px;line-height: 38px;text-align: center;">
+            <a ew-event="flexible" title="侧边伸缩" style="color: #fff;"><i class="layui-icon layui-icon-shrink-right" style="font-size: 16px;"></i></a>
+        </div>
+        <ul class="layui-nav layui-nav-tree" lay-filter="admin-side-nav" lay-accordion="true"
+            style="margin: 15px 0;">
+            <% for(menu in menus) { %>
+            <li class="layui-nav-item">
+                <a lay-href="${menu.menuUrl}" href="javascript:;"><i class="layui-icon ${menu.menuIcon}"></i>&emsp;<cite>${menu.menuName}</cite></a>
+                <% if(menu.subMenus.~size>0) { %>
+                <dl class="layui-nav-child">
+                    <% for(subMenu in menu.subMenus) { %>
+                    <dd>
+                        <a lay-href="${subMenu.menuUrl}" href="javascript:;"><i class="layui-icon ${subMenu.menuIcon}"></i>&ensp;<cite>${subMenu.menuName}</cite></a>
+                        <% if(subMenu.subMenus.~size>0) { %>
+                        <dl class="layui-nav-child">
+                            <% for(temp in subMenu.subMenus) { %>
+                            <dd>
+                                <a lay-href="${temp.menuUrl}"><i class="layui-icon ${temp.menuIcon}"></i>&ensp;<cite>${temp.menuName}</cite></a>
+                                <% if(temp.subMenus.~size>0) { %>
+                                <dl class="layui-nav-child">
+                                    <% for(temps in temp.subMenus) { %>
+                                    <dd>
+                                        <a lay-href="${temps.menuUrl}"><i class="layui-icon ${temps.menuIcon}">&ensp;</i><cite>${temps.menuName}</cite></a>
+                                    </dd>
+                                    <% } %>
+                                </dl>
+                                <% } %>
+                            </dd>
+                            <% } %>
+                        </dl>
+                        <% } %>
+                    </dd>
+                    <% } %>
+                </dl>
+                <% } %>
+            </li>
+            <% } %>
+            <%if(shiro.hasPermission("druid:view")){ %>
+            <li class="layui-nav-item">
+                <a href="javascript:;"><i class="layui-icon layui-icon-engine"></i>&emsp;<cite>系统监控</cite></a>
+                <dl class="layui-nav-child" style="background-color:transparent !important;">
+                    <dd><a lay-href="/druid/" href="javascript:;">Druid监控</a></dd>
+                    <dd><a lay-href="/genCode" href="javascript:;">代码生成</a></dd>
+                    <dd><a lay-href="/swagger-ui.html" href="javascript:;">swagger接口</a></dd>
+                </dl>
+            </li>
+            <%}%>
+        </ul>
+    </div>
+</div>
+
+
+

@@ -159,11 +159,11 @@ body {
 }
 
 .icon-up::before {
-    content: url("../../assets/images/map/icon-up.png");
+    content: url("..p/icon-up.png");
 }
 
 .icon-down::before {
-    content: url("../../assets/images/map/icon-down.png");
+    content: url("..p/icon-down.png");
 }
 
 .factorArea {
@@ -713,7 +713,7 @@ body {
     background: url("../images/map/icon-site-raiseDust.png") no-repeat center left;
 }
 .icon-site-raiseDust{
-    background: url("../Images/map/icon-site-raiseDust-active.png") no-repeat center left;
+    background: url("../images/map/icon-site-raiseDust-active.png") no-repeat center left;
 }
 
 .mapSiteArea section{
@@ -780,10 +780,10 @@ body {
     margin-top: -20px;
 }
 .site-data-detailbtn .table-panel-up:before{
-    content: url(../../assets/images/map/icon-up.png);
+    content: url(../images/map/icon-up.png);
 }
 .site-data-detailbtn .table-panel-down:before{
-    content: url(../../assets/images/map/icon-down.png);
+    content: url(../images/map/icon-down.png);
 }
 .distanceSearch{
     position: absolute;

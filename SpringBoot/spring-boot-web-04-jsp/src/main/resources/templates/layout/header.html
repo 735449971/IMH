@@ -1,0 +1,173 @@
+<!-- 头部 -->
+<div class="layui-header">
+    <div class="layui-logo">
+        <img style="height: 33px; width: 33px;"  src="../../static/assets/images/default-logo.png">
+        <cite style="font-size: 23px;">智能应急管控平台</cite>
+    </div>
+
+    <ul class="layui-nav layui-layout-left">
+        <img src="../../static/assets/images/lsqs.png" alt="" style="margin-left: 36px;margin-top: 5px;width: 420px;height: 44px;">
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item" lay-unselect>
+            <a ew-event="refresh" title="刷新"><i class="layui-icon layui-icon-refresh-3"></i></a>
+        </li>
+        <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a ew-event="fullScreen" title="全屏"><i class="layui-icon layui-icon-screen-full"></i></a>
+        </li>
+        <li class="layui-nav-item" lay-unselect>
+            <a>
+                <img src="/static/assets/images/head.png" class="layui-nav-img">
+                <cite>${loginUser.realName}</cite>
+            </a>
+            <dl class="layui-nav-child">
+                <dd lay-unselect>
+                    <a ew-event="psw">修改密码</a>
+                </dd>
+                <dd lay-unselect>
+                    <a ew-event="clearCache">清除缓存</a>
+                </dd>
+                <hr>
+                <dd lay-unselect>
+                    <a ew-event="logout" data-url="/logout">退出</a>
+                </dd>
+            </dl>
+        </li>
+        <!--
+        <li class="layui-nav-item" lay-unselect>
+            <a ew-event="theme" title="主题"><i class="layui-icon layui-icon-more-vertical"></i></a>
+        </li>
+        -->
+    </ul>
+</div>
+
+<script type="text/javascript" src="../../static/assets/js/sockjs.min.js"></script>
+<script type="text/javascript" src="../../static/assets/js/stomp.min.js"></script>
+<script type="text/javascript" src="../../static/assets/libs/jquery/jquery-3.2.1.min.js"></script>
+<script>
+/*初始化*/
+$(document).ready(function(){
+    var queueStompClient = null;
+    var topicStompClient = null;
+    var user = "${loginUser.realName}";
+    // console.log("user is "+user);
+    /*设置连接配置*/
+    var queueSocket = new SockJS("/queueServer");
+    var topicSocket = new SockJS("/topicService");
+    queueStompClient = Stomp.over(queueSocket);
+    topicStompClient = Stomp.over(topicSocket);
+
+    // console.log("queueStompClient is {}", queueStompClient);
+    // console.log("topicStompClient is {}", topicStompClient);
+    /* 启动点对点连接并接收消息 */
+    queueStompClient.connect({}, function(frame) {
+        // console.log('Connected: ' + frame);
+        var p2pUrl = '/queue/' + user + '/message';
+        queueStompClient.subscribe(p2pUrl, function (response) {
+            // console.log("p2p is {}", response);
+            /*处理接收消息方法*/
+            this.p2pShowCount(response.body);
+        });
+    });
+    topicStompClient.connect({}, function (frame) {
+        // console.log("start topicStompClient");
+        /* 启动群发连接并接收消息 */
+        var topicUrl = '/topic/message';
+        topicStompClient.subscribe(topicUrl, function(response){
+            // console.log("topic is {}", response);
+            /*处理接收消息方法*/
+            topicShowCount(response.body);
+        });
+    })
+});
+/* 处理私信\通知类显示数量 */
+function p2pShowCount(response) {
+    var htm = $("#notice").html();
+    var v_response = JSON.parse(response);
+    var v_type = v_response.type;
+    var v_total = v_response.total;
+    // console.log("p2p htm is {}", htm);
+    if(v_type == '1'){
+        if(htm === ''){
+            $("#notice").html(htm+"私信("+JSON.parse(response).total+")");
+        }else{
+            var regex = new RegExp("私信\\(([0-9]+)\\)");
+            var array = htm.match(regex);
+            var num;
+            // console.log(array);
+            if(null == array){
+                num = 0;
+            }else{
+                for(let i=0;i<array.length;i++){
+                    var value = array[i];
+                    // console.log(value);
+                    var num_reg = new RegExp("^[0-9]*$");
+                    if(num_reg.test(value)){
+                        num = value;
+                    }
+                }
+            }
+            // console.log("num is = "+num);
+            var total = Number(num) + Number(JSON.parse(response).total);
+            htm = htm.replace(regex,'');
+            $("#notice").html(htm+"私信("+total+")");
+        }
+    }else if(v_type == '2'){
+        if(htm === ''){
+            $("#notice").html(htm+"通知("+JSON.parse(response).total+")");
+        }else{
+            var regex = new RegExp("通知\\(([0-9]+)\\)");
+            var array = htm.match(regex);
+            var num;
+            // console.log(array);
+            if(null == array){
+                num = 0;
+            }else{
+                for(let i=0;i<array.length;i++){
+                    var value = array[i];
+                    // console.log(value);
+                    var num_reg = new RegExp("^[0-9]*$");
+                    if(num_reg.test(value)){
+                        num = value;
+                    }
+                }
+            }
+            var total = Number(num) + Number(JSON.parse(response).total);
+            htm = htm.replace(regex,'');
+            $("#notice").html(htm+"通知("+total+")");
+        }
+    }else{
+        $("#notice").html("");
+    }
+}
+/* 处理通知显示数量 */
+function topicShowCount(response) {
+    // console.log("topic response is {}", response);
+    var htm = $("#notice").html();
+    // console.log("topic htm is {}", htm);
+    if(htm === ''){
+        $("#notice").html("公告("+JSON.parse(response).total+")");
+    }else{
+        var regex = new RegExp("公告\\(([0-9]+)\\)");
+        var array = htm.match(regex);
+        var num;
+        // console.log(array);
+        if(null == array){
+            num = 0;
+        }else{
+            for(let i=0;i<array.length;i++){
+                var value = array[i];
+                // console.log(value);
+                var num_reg = new RegExp("^[0-9]*$");
+                if(num_reg.test(value)){
+                    num = value;
+                }
+            }
+        }
+        // console.log("num is = "+num);
+        var total = Number(num) + Number(JSON.parse(response).total);
+        htm = htm.replace(regex,'');
+        $("#notice").html("公告("+total+")");
+    }
+}
+</script>
