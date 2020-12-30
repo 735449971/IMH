@@ -89,7 +89,6 @@
                 limit:20,
                 limits: [20, 40, 60,80,100],
                 parseData: function(res){ //res 即为原始返回的数据
-                    console.log(res.data.content[0].id);
                 return {
                     "code": 0, //解析接口状态
                     "msg": res.msg, //解析提示文本
@@ -154,17 +153,24 @@
         //给单元格加颜色
         function usernameTp(d){
             var a = this.field;
-            console.log(d);
+            console.log(a)
             var html="";
             html = '<u style="color:#1E9FFF">'+d[a]+'</u>' +
-                '<a class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: 0.8rem;" lay-event="detail">+</a>' +
+                '<a class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: 0.8rem;" lay-event='+a+'>+</a>' +
                 '<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">-</a>' ;
             if('goldPrice'==this.field){
                 html = '<u style="color:#1E9FFF">'+d[a]+'</u>' +
-                    '<a class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: 0.8rem;" lay-event="detail">修改</a>';
+                    '<a class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: 0.8rem;" lay-event='+a+'>修改</a>';
             }
             return html;
         }
+        //监听单元格事件
+        table.on('tool(mhxyRunTable)', function(obj){
+            var event = obj.event;
+            console.log(obj);
+
+        });
+
 
     });
 </script>

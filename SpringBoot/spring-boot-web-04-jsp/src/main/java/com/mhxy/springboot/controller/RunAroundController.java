@@ -26,7 +26,6 @@ public class RunAroundController {
         int page = runAround.getPage();
         int limit = runAround.getLimit();
         Page<RunAround> arounds = runAroundDao.findRunAroundPagination(page, limit, "aroundNum");
-        System.out.println(arounds);
         return ResJson.ok(200, "查询成功!", arounds);
     }
 
