@@ -7,6 +7,10 @@ spring:
     username: system
     password: system
 
+  data:
+    mongodb:
+      uri:  mongodb://127.0.0.1:27017/test?gssapiServiceName=mongodb&maxPoolSize=256
+
 
   thymeleaf:
     cache=false: false
