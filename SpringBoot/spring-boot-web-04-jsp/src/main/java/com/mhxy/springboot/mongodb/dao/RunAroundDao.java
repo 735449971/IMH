@@ -51,9 +51,24 @@ public class RunAroundDao {
      * @param runAround runAround
      */
     public void updateRunAround(RunAround runAround) {
-        Query query = new Query(Criteria.where("id").is(runAround.getId()));
+        System.out.println(runAround.getId());
+        System.out.println(runAround.getSearchPerson());
+        Query query = new Query(Criteria.where("_id").is(runAround.getId()));
         Update update = new Update().set("searchPerson", runAround.getSearchPerson());
-        mongoTemplate.updateFirst(query, update, User.class);
+        update.set("aroundNum",runAround.getAroundNum());
+        update.set("score",runAround.getScore());
+        update.set("sixwq", runAround.getSixwq());
+        update.set("sixzb", runAround.getSixzb());
+        update.set("sevenwq", runAround.getSevenwq());
+        update.set("sevenzb", runAround.getSevenzb());
+        update.set("eightwq", runAround.getEightwq());
+        update.set("eightzb", runAround.getEightzb());
+        update.set("by", runAround.getBy());
+        update.set("zhiBy", runAround.getZhiBy());
+        update.set("moneyForMH", runAround.getMoneyForMH());
+        update.set("goldPrice", runAround.getGoldPrice());
+        update.set("moneyForRMB", runAround.getMoneyForRMB());
+        mongoTemplate.updateFirst(query, update, RunAround.class);
     }
 
 
@@ -75,6 +90,14 @@ public class RunAroundDao {
         pageable.setPage(pm);
         Long count = mongoTemplate.count(query, RunAround.class);
         List<RunAround> list = mongoTemplate.find(query.with(pageable), RunAround.class,"run_around");
+        for (RunAround r:list) {
+            if(r.getAroundNum()==0){
+                r.setAvgAround(0);
+            }else{
+                double i = r.getMoneyForMH()/r.getAroundNum();
+                r.setAvgAround(i);
+            }
+        }
         return new PageImpl<>(list, pageable, count);
     }
 

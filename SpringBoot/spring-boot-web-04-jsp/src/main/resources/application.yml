@@ -9,7 +9,7 @@ spring:
 
   data:
     mongodb:
-      uri:  mongodb://127.0.0.1:27017/test?gssapiServiceName=mongodb&maxPoolSize=256
+      uri:  mongodb://127.0.0.1/test?gssapiServiceName=mongodb&maxPoolSize=256
 
 
   thymeleaf:

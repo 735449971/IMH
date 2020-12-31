@@ -36,5 +36,13 @@ public class RunAroundController {
         return ResJson.ok(200, "添加成功!", 1);
     }
 
+    @GetMapping("/updateRunAround")
+    @ResponseBody
+    public ResJson updateRunAround(RunAround runAround){
+        runAroundDao.updateRunAround(runAround);
+        return ResJson.ok(200, "更新成功!", 1);
+    }
+
+
 
 }

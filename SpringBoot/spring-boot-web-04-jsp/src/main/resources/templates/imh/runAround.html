@@ -31,30 +31,30 @@
 <div class="layui-form-item">
     <div class="layui-inline">
         <form class="layui-form" action="" method="post " lay-filter="dataFrm" id="dataFrm">
-<!--            <label class="layui-form-label">60级武器价格</label>-->
-<!--            <div class="layui-input-inline" style="width: 100px;">-->
-<!--                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">-->
-<!--            </div>-->
-<!--            <label class="layui-form-label">60级装备价格</label>-->
-<!--            <div class="layui-input-inline" style="width: 100px;">-->
-<!--                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">-->
-<!--            </div>-->
-<!--            <label class="layui-form-label">70级武器价格</label>-->
-<!--            <div class="layui-input-inline" style="width: 100px;">-->
-<!--                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">-->
-<!--            </div>-->
-<!--            <label class="layui-form-label">70级装备价格</label>-->
-<!--            <div class="layui-input-inline" style="width: 100px;">-->
-<!--                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">-->
-<!--            </div>-->
-<!--            <label class="layui-form-label">80级武器价格</label>-->
-<!--            <div class="layui-input-inline" style="width: 100px;">-->
-<!--                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">-->
-<!--            </div>-->
-<!--            <label class="layui-form-label">80级装备价格</label>-->
-<!--            <div class="layui-input-inline" style="width: 100px;">-->
-<!--                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">-->
-<!--            </div>-->
+            <label class="layui-form-label">60级武器价格</label>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+            </div>
+            <label class="layui-form-label">60级装备价格</label>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+            </div>
+            <label class="layui-form-label">70级武器价格</label>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+            </div>
+            <label class="layui-form-label">70级装备价格</label>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+            </div>
+            <label class="layui-form-label">80级武器价格</label>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+            </div>
+            <label class="layui-form-label">80级装备价格</label>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+            </div>
             <div class="layui-inline">
                 <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon" lay-submit lay-filter="btnExp" id="btnExp">&#xe67d;开始跑环</button>
             </div>
@@ -62,6 +62,11 @@
     </div>
 
     <table class="layui-table" id="mhxyRunTable" lay-filter="mhxyRunTable"></table>
+    <div style="display:none;padding: 20px;" id="openRes">
+        <form class="layui-form" action="" lay-filter="dataFrm2" id="dataFrm2">
+            <input name="enpName" id="enpName"  class="layui-input" type="number"/>
+        </form>
+    </div>
 </div>
 
 <script>
@@ -77,7 +82,7 @@
             , slider = layui.slider //滑块
             , form = layui.form;
         //向世界问个好
-        layer.msg('Hello World');
+        layer.msg('欢迎08区的兄弟们！');
         refreshTable();
         //渲染表格的方法
         function refreshTable() {
@@ -86,6 +91,7 @@
                 title:"跑环积分表",
                 url: '/mhxyRunAround/queryRunAround',
                 page:true,
+                totalRow: true,
                 limit:20,
                 limits: [20, 40, 60,80,100],
                 parseData: function(res){ //res 即为原始返回的数据
@@ -97,11 +103,15 @@
                     };
                 },
                 cols: [[
-                    {type: 'numbers', title:'序号'},
+                    {type: 'numbers', title:'序号',totalRowText: '合计'},
                     // {title: 'ID', field: 'id', align: 'center',   hide:true},
                     {title: '当前环数', field: 'aroundNum', align: 'center', valign: 'middle'},
                     {title: '当前积分', field: 'score', align: 'center', valign: 'middle'},
-                    {title: '找人', field: 'searchPerson', align: 'center',   templet: usernameTp},
+                    {title: '金价比例', field: 'goldPrice', align: 'center',edit: 'text'},
+                    {title: '已花费MHB', field: 'moneyForMH', align: 'center'},
+                    {title: '平均每环花费', field: 'avgAround', align: 'center'},
+                    {title: '每环现金花费', field: 'avgAroundForRMB', align: 'center', valign: 'middle'},
+                    {title: '人', field: 'searchPerson', align: 'center',   templet: usernameTp},
                     {title: '60武器', field: 'sixwq', align: 'center',   templet: usernameTp},
                     {title: '60装备', field: 'sixzb', align: 'center',   templet: usernameTp},
                     {title: '70武器', field: 'sevenwq', align: 'center',   templet: usernameTp},
@@ -110,9 +120,7 @@
                     {title: '80装备', field: 'eightzb', align: 'center',   templet: usernameTp},
                     {title: 'BY', field: 'by', align: 'center',   templet: usernameTp},
                     {title: '指定BY', field: 'zhiBy', align: 'center',   templet: usernameTp},
-                    {title: '花费MHB', field: 'moneyForMH', align: 'center',   templet: usernameTp},
-                    {title: '所在区比例', field: 'goldPrice', align: 'center',   templet: usernameTp},
-                    {title: '现金', field: 'moneyForRMB', align: 'center', valign: 'middle'}
+                    {title: '乐花兽决', field: 'zhiBy', align: 'center'}
                 ]]
             });
         }
@@ -146,6 +154,7 @@
                         refreshTable();
                     },
                     error: function (result) {
+
                     }
                 });
             })
@@ -153,25 +162,230 @@
         //给单元格加颜色
         function usernameTp(d){
             var a = this.field;
-            console.log(a)
             var html="";
             html = '<u style="color:#1E9FFF">'+d[a]+'</u>' +
-                '<a class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: 0.8rem;" lay-event='+a+'>+</a>' +
-                '<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">-</a>' ;
+                '<a class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: 0.8rem;" lay-event='+a+''+1+'>+</a>' +
+                '<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event='+a+''+2+'>-</a>' ;
             if('goldPrice'==this.field){
                 html = '<u style="color:#1E9FFF">'+d[a]+'</u>' +
-                    '<a class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: 0.8rem;" lay-event='+a+'>修改</a>';
+                    '<a class="layui-btn layui-btn-primary layui-btn-xs" style="margin-left: 0.8rem;" lay-event='+a+'></a>';
+            }
+            if('moneyForMH'==this.field){
+                html = '<u style="color:#1E9FFF">'+d[a]+'万</u>'
             }
             return html;
         }
         //监听单元格事件
         table.on('tool(mhxyRunTable)', function(obj){
+            var updateParam;
             var event = obj.event;
-            console.log(obj);
+            //当前环数
+            var aroundNum=obj.data.aroundNum;
+            //当前积分
+            var score=obj.data.score;
+            //当前花费MHB
+            var moneyForMH=obj.data.moneyForMH;
+            var flag=event.substr(event.length-1,1);
+            event = event.substr(0,event.length-1);
+            if(flag==1){
+                aroundNum++;
+            }
+            if(flag==2){
+                aroundNum--;
+            }
+            updateParam=obj.data;
+            updateParam.aroundNum=aroundNum;
+            //找人
+            if(event=='searchPerson'){
+                var searchPersonIndex = obj.data.searchPerson;
+                if(flag==1){
+                    searchPersonIndex++;
+                    score++;
+                }
+                if(flag==2){
+                    searchPersonIndex--;
+                    score--;
+                }
+                updateParam.searchPerson=searchPersonIndex;
+            }
 
+            //60武器
+            if(event=='sixwq'){
+                var sixwqIndex = obj.data.sixwq;
+                if(flag==1){
+                    sixwqIndex++;
+                    score=score+2;
+                    moneyForMH=moneyForMH+16.5;
+                }
+                if(flag==2){
+                    sixwqIndex--;
+                    score=score-2;
+                    moneyForMH=moneyForMH-16.5;
+                }
+                updateParam.sixwq=sixwqIndex;
+            }
+
+            //60装备
+            if(event=='sixzb'){
+                var sixzbIndex = obj.data.sixzb;
+                if(flag==1){
+                    sixzbIndex++;
+                    score=score+2;
+                    moneyForMH=moneyForMH+16.5;
+                }
+                if(flag==2){
+                    sixzbIndex--;
+                    score=score-2;
+                    moneyForMH=moneyForMH-16.5;
+                }
+                updateParam.sixzb=sixzbIndex;
+            }
+
+            //70武器
+            if(event=='sevenwq'){
+                var sevenwqIndex = obj.data.sevenwq;
+                if(flag==1){
+                    sevenwqIndex++;
+                    score=score+3;
+                    moneyForMH=moneyForMH+9.5;
+                }
+                if(flag==2){
+                    sevenwqIndex--;
+                    score=score-3;
+                    moneyForMH=moneyForMH-9.5;
+                }
+                updateParam.sevenwq=sevenwqIndex;
+            }
+            //70装备
+            if(event=='sevenzb'){
+                var sevenzbIndex = obj.data.sevenzb;
+                if(flag==1){
+                    sevenzbIndex++;
+                    score=score+3;
+                    moneyForMH=moneyForMH+7;
+                }
+                if(flag==2){
+                    sevenzbIndex--;
+                    score=score-3;
+                    moneyForMH=moneyForMH-7;
+                }
+                updateParam.sevenzb=sevenzbIndex;
+            }
+            //80武器
+            if(event=='eightwq'){
+                var eightwqIndex = obj.data.eightwq;
+                if(flag==1){
+                    eightwqIndex++;
+                    score=score+4;
+                    moneyForMH=moneyForMH+42;
+                }
+                if(flag==2){
+                    eightwqIndex--;
+                    score=score-4;
+                    moneyForMH=moneyForMH-42;
+                }
+                updateParam.eightwq=eightwqIndex;
+            }
+            //80装备
+            if(event=='eightzb'){
+                var eightzbIndex = obj.data.eightzb;
+                if(flag==1){
+                    eightzbIndex++;
+                    score=score+4;
+                    moneyForMH=moneyForMH+31;
+                }
+                if(flag==2){
+                    eightzbIndex--;
+                    score=score-4;
+                    moneyForMH=moneyForMH-31;
+                }
+                updateParam.eightzb=eightzbIndex;
+            }
+            //BY
+            if(event=='by'){
+                var byIndex = obj.data.by;
+                if(flag==1){
+                    byIndex++;
+                    score=score+5;
+                    moneyForMH=moneyForMH+60;
+                }
+                if(flag==2){
+                    byIndex--;
+                    score=score-5;
+                    moneyForMH=moneyForMH-60;
+                }
+                updateParam.by=byIndex;
+            }
+            //指定BY
+            if(event=='zhiBy'){
+                layer.open({
+                    type:1,
+                    title:"输入指定BY的价格（单位/万）",
+                    content:'<input  id="zhiByPrice"  class="layui-input" type="number"/>',
+                    area:["300px",'150px'],
+                    btn: ['确定', '取消'],
+                    yes: function(index, layero){
+                        var zhiByIndex = obj.data.zhiBy;
+                        if(flag==1){
+                            zhiByIndex++;
+                            score=score+10;
+                            moneyForMH=Number(moneyForMH)+Number($('#zhiByPrice').val());
+                        }
+                        if(flag==2){
+                            zhiByIndex--;
+                            score=score-10;
+                            moneyForMH=Number(moneyForMH)-Number($('#zhiByPrice').val());
+                        }
+                        updateParam.zhiBy=zhiByIndex;
+                        updateParam.moneyForMH=moneyForMH;
+                        updateParam.score=score;
+                        updateRunAround(updateParam);
+                        layer.close(index);
+                    }});
+            }
+            //花费MHB
+            if(event=='moneyForMH'){
+                var moneyForMHIndex = obj.data.moneyForMH;
+                if(flag==1){
+                    moneyForMHIndex++;
+                }
+                if(flag==2){
+                    moneyForMHIndex--;
+                }
+                updateParam.moneyForMH=moneyForMHIndex;
+            }
+            //所在区比例
+            if(event=='goldPrice'){
+                var goldPriceIndex = obj.data.goldPrice;
+                if(flag==1){
+                    goldPriceIndex++;
+                }
+                if(flag==2){
+                    goldPriceIndex--;
+                }
+                updateParam.goldPrice=goldPriceIndex;
+            }
+            updateParam.moneyForMH=moneyForMH;
+            updateParam.score=score;
+            updateRunAround(updateParam);
         });
 
+        //更新方法
+        function updateRunAround(updateParam) {
+            $.ajax({
+                url: "/mhxyRunAround/updateRunAround",
+                data:updateParam,
+                type: 'get',
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (result) {
+                    refreshTable();
+                },
+                error: function (result) {
 
+                }
+            });
+        }
     });
 </script>
 </body>

@@ -45,11 +45,13 @@ public class RunAround implements Serializable {
     @Field("score")
     private int score;
     @Field("moneyForMH")
-    private int moneyForMH;
+    private double moneyForMH;
     @Field("goldPrice")
     private double goldPrice;
     @Field("moneyForRMB")
     private double moneyForRMB;
+    @Field("avgAround")
+    private double avgAround;
 
     private int page;
     private int limit;
