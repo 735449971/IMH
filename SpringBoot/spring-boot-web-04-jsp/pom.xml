@@ -6,7 +6,7 @@
     <groupId>com.wdjr</groupId>
     <artifactId>spring-boot-web-04-jsp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>spring-boot-web-04-jsp</name>
     <description>Demo project for Spring Boot</description>

@@ -2,7 +2,6 @@ package com.mhxy.springboot.mongodb.dao;
 
 
 import com.mhxy.springboot.mongodb.demo.RunAround;
-import com.mhxy.springboot.mongodb.demo.User;
 import com.mhxy.springboot.mongodb.page.PageModel;
 import com.mhxy.springboot.mongodb.page.SpringPageable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -68,6 +68,7 @@ public class RunAroundDao {
         update.set("moneyForMH", runAround.getMoneyForMH());
         update.set("goldPrice", runAround.getGoldPrice());
         update.set("moneyForRMB", runAround.getMoneyForRMB());
+        update.set("flower", runAround.getFlower());
         mongoTemplate.updateFirst(query, update, RunAround.class);
     }
 
@@ -79,10 +80,14 @@ public class RunAroundDao {
      * @param sortField 排序字段
      * @return pages
      */
-    public Page<RunAround> findRunAroundPagination(Integer pageNum, Integer pageSize, String sortField) {
+    public Page<RunAround> findRunAroundPagination(Integer pageNum, Integer pageSize, String sortField,String userName) {
         SpringPageable pageable = new SpringPageable();
         PageModel pm = new PageModel();
-        Query query = new Query();
+        if("".equals(userName)){
+            return null;
+        }
+        //条件查询1，多条件is("值")后面可以加and("字段2").is("值2")
+        Query query = new Query(Criteria.where("userName").is(userName));
         Sort sort = new Sort(Sort.Direction.DESC,sortField);
         pm.setPagenumber(pageNum);
         pm.setPagesize(pageSize);
@@ -95,10 +100,28 @@ public class RunAroundDao {
                 r.setAvgAround(0);
             }else{
                 double i = r.getMoneyForMH()/r.getAroundNum();
-                r.setAvgAround(i);
+                BigDecimal   b   =   new BigDecimal(i);
+                double   f1   =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();
+                r.setAvgAround(f1);
+            }
+            if(!"".equals(r.getGoldPrice())){
+                double rmb =r.getGoldPrice()*r.getMoneyForMH();
+                BigDecimal   b   =   new BigDecimal(rmb);
+                double   f1   =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();
+                r.setMoneyForRMB(f1);
             }
         }
+
         return new PageImpl<>(list, pageable, count);
+    }
+    /**
+     * 删除RunAround
+     *
+     * @param id id
+     */
+    public void deleteRunAroundById(String id) {
+        Query query = new Query(Criteria.where("_id").is(id));
+        mongoTemplate.remove(query, RunAround.class);
     }
 
 }

@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Description:
@@ -20,4 +21,7 @@ public class User implements Serializable {
     private String userName;
     @Field("password")
     private String password;
+    @Field("order")
+    private List RunAround;
+
 }

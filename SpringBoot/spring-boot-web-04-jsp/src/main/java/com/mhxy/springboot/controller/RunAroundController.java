@@ -6,7 +6,6 @@ import com.mhxy.springboot.mongodb.demo.RunAround;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,7 +24,7 @@ public class RunAroundController {
     public ResJson queryRunAround(RunAround runAround){
         int page = runAround.getPage();
         int limit = runAround.getLimit();
-        Page<RunAround> arounds = runAroundDao.findRunAroundPagination(page, limit, "aroundNum");
+        Page<RunAround> arounds = runAroundDao.findRunAroundPagination(page, limit, "userName",runAround.getUserName());
         return ResJson.ok(200, "查询成功!", arounds);
     }
 
@@ -43,6 +42,12 @@ public class RunAroundController {
         return ResJson.ok(200, "更新成功!", 1);
     }
 
+    @GetMapping("/deleteRunAroundById")
+    @ResponseBody
+    public ResJson deleteRunAroundById(String id){
+        runAroundDao.deleteRunAroundById(id);
+        return ResJson.ok(200, "删除成功!", 1);
+    }
 
 
 }

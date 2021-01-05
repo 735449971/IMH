@@ -22,6 +22,8 @@ public class RunAround implements Serializable {
     @AutoIncKey
     @Id
     private String id;
+    @Field("userName")
+    private String userName;
     @Field("aroundNum")
     private int aroundNum;
     @Field("searchPerson")
@@ -52,6 +54,8 @@ public class RunAround implements Serializable {
     private double moneyForRMB;
     @Field("avgAround")
     private double avgAround;
+    @Field("flower")
+    private int flower;
 
     private int page;
     private int limit;
